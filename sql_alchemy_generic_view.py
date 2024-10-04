@@ -1,4 +1,3 @@
-# pylint: disable=C0114
 # pylint: disable=C0301
 from sqlalchemy import create_engine, select
 from sqlalchemy import Column, Integer, String
