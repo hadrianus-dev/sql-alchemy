@@ -51,7 +51,7 @@ result = session.get(Film, 3)
 result.title = "The Matrix Resurrections"
 session.commit()
 print({'UPDATE': result})
-print() 
+print()
 # OR
 # session.query(Film).filter(Film.title == "The Matrix").update({"title": "The Matrix Resurrections"})
 # session.commit()

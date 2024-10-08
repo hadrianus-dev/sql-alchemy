@@ -1,10 +1,11 @@
 # pylint: disable=C0301
+# pylint: disable=E0239
+# pylint: disable=C0412
 
 from typing import List
 from sqlalchemy.orm import Mapped, registry, mapped_column, relationship
-from sqlalchemy import Integer, String
 from sqlalchemy import Table
-from sqlalchemy import Column, ForeignKey
+from sqlalchemy import Column, ForeignKey, String
 
 mapper_registry = registry()
 
@@ -16,14 +17,13 @@ filmes_genres_association = Table(
 )
 
 @mapper_registry.mapped
-class Films:
-    __tablename__ = "films"
-
+class Genres:
+    __tablename__ = "genres"
     id: Mapped[int] = mapped_column(primary_key=True)
     title: Mapped[str] = mapped_column(String(100))
     description: Mapped[str] = mapped_column(String(255))
-    year: Mapped[int] = mapped_column(Integer)
-    genres: Mapped[List["Genre"]] = relationship("Genre", secondary=filmes_genres_association, back_populates="films")
+
+    films: Mapped[List["Film"]] = relationship("Film", secondary=filmes_genres_association, back_populates="genres")  # noqa: F821
 
     def __repr__(self):
-        return f"Film: [id={self.id}, title={self.title}, description={self.description}, year={self.year}]"
+        return f"Genre: [id={self.id}, title={self.title}, description={self.description}]"
