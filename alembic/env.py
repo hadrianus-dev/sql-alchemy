@@ -1,9 +1,14 @@
+# pylint: disable=C0413
+# pylint: disable=E1101
+# pylint: disable=C0103
+
 from logging.config import fileConfig
 
 from sqlalchemy import engine_from_config
 from sqlalchemy import pool
 
 from alembic import context
+from src.infra.config.Base import Base
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -25,6 +30,10 @@ target_metadata = None
 # my_important_option = config.get_main_option("my_important_option")
 # ... etc.
 
+DB_URL = 'mysql+pymysql://root@localhost:3306/cinema'
+config.set_main_option('sqlalchemy.url', DB_URL)
+
+target_metadata = Base.metadata
 
 def run_migrations_offline() -> None:
     """Run migrations in 'offline' mode.

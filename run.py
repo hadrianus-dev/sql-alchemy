@@ -1,4 +1,4 @@
-from infra.repositories.film_repository import FilmRepository
+from src.infra.repositories import FilmRepository
 
 repo = FilmRepository()
 print(repo.select())

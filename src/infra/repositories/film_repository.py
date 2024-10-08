@@ -1,7 +1,8 @@
 # pylint: disable=E0239
 # pylint: disable=C0301
-from infra.config.connection import DBConnectionHandler
-from infra.entities.films import Films as Film
+from src.infra.config.connection import DBConnectionHandler
+from src.infra.entities.films import Films as Film
+from src.infra.entities.genres import Genres as Genre
 
 class FilmRepository:
 
@@ -9,6 +10,15 @@ class FilmRepository:
         with DBConnectionHandler() as db:
             try:
                 result = db.session.query(Film).all()
+                return result
+            except Exception as exception:
+                db.session.rollback()
+                raise exception
+
+    def select_by_id(self, id: int):
+        with DBConnectionHandler() as db:
+            try:
+                result = db.session.query(Film).filter(Film.id == id).first()
                 return result
             except Exception as exception:
                 db.session.rollback()
